@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kris | Creative Developer</title>
+    <meta name="description"
+        content="Portfolio of Kris, a creative developer specializing in aesthetic web experiences.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <!-- Particle Canvas Layer -->
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Radial Mouse Glow -->
+    <div id="mouse-glow"></div>
+
+    <div class="bg-animation">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+        <div class="noise-overlay"></div>
+    </div>
+
+    <header class="header" id="header">
+        <nav class="nav container">
+            <a href="#" class="nav__logo">Portfolio Kris</a>
+
+            <div class="nav__menu" id="nav-menu">
+                <ul class="nav__list">
+                    <li class="nav__item">
+                        <a href="#about" class="nav__link">About</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#projects" class="nav__link">Projects</a>
+                    </li>
+                    <li class="nav__item">
+                        <a href="#contact" class="nav__link">Contact</a>
+                    </li>
+                </ul>
+                <!-- Close button for mobile -->
+                <div class="nav__close" id="nav-close">
+                    <i class="ri-close-line"></i>
+                </div>
+            </div>
+
+            <!-- Toggle button for mobile -->
+            <div class="nav__toggle" id="nav-toggle">
+                <i class="ri-menu-line"></i>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main">
+        <section class="home section" id="home">
+            <div class="home__container container grid">
+
+                <div class="home__social">
+                    <a href="https://github.com/" target="_blank" class="home__social-link" aria-label="GitHub">
+                        <i class="ri-github-fill"></i>
+                    </a>
+                    <a href="https://linkedin.com/" target="_blank" class="home__social-link" aria-label="LinkedIn">
+                        <i class="ri-linkedin-box-fill"></i>
+                    </a>
+                    <a href="https://leetcode.com/" target="_blank" class="home__social-link" aria-label="LeetCode">
+                        <i class="ri-code-s-slash-fill"></i>
+                    </a>
+                </div>
+
+                <div class="home__content">
+                    <div class="home__text-left">
+                        <span class="home__greeting">Hello I'm</span>
+                        <h1 class="home__name">Kris Jaiswal</h1>
+                    </div>
+
+                    <div class="home__img-wrapper">
+                        <div class="home__glow"></div>
+                        <img src="assets/profile.jpg" alt="Kris Profile" class="home__img">
+                    </div>
+
+                    <h1 class="home__title-right" id="changing-text">Creative<br>Developer</h1>
+                </div>
+
+            </div>
+        </section>
+        <!--                    ABOUT                  -->
+        <section class="about section" id="about">
+            <div class="about__container container grid">
+                <div class="about__img-wrapper">
+                    <div class="about__glow"></div>
+                    <img src="assets/profile.jpg" alt="About Kris" class="about__img">
+                </div>
+
+                <div class="about__data">
+                    <h2 class="about__title">
+                        <span class="about__title-gradient">Creativity</span><br>
+                        Is My Passion
+                    </h2>
+                    <p class="about__description">
+                        I'm a web <span class="about__text-highlight">developer and designer</span>
+                        passionate about experimenting with new <span class="about__text-highlight">skills and
+                            creativity.</span>
+                        Driven by learning and curiosity, I'm always looking to explore and learn new development and
+                        design skills.
+                    </p>
+                    <a href="#" class="btn btn--outline">
+                        Resume <i class="ri-download-line"></i>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <!--==================== PROJECTS ====================-->
+        <section class="projects section" id="projects">
+            <h2 class="section__title-center">
+                I Make Incredible <br>
+                <span class="section__title-gradient">Projects</span>
+            </h2>
+
+            <div class="projects__container container grid">
+                <!-- Project 1 -->
+                <article class="projects__card">
+                    <div class="projects__header">
+                        <span class="projects__number">01</span>
+                        <span class="projects__category">Design</span>
+                    </div>
+                    <h3 class="projects__title">Interface Design For Ice Cream Shop</h3>
+                    <p class="projects__tech-title">Technologies used</p>
+                    <p class="projects__tech">HTML, CSS, JavaScript, Gsap, Swiper Js and Figma.</p>
+                    <img src="assets/profile.jpg" alt="Project 1" class="projects__img">
+                </article>
+
+                <!-- Project 2 -->
+                <article class="projects__card">
+                    <div class="projects__header">
+                        <span class="projects__number">02</span>
+                        <span class="projects__category">Web</span>
+                    </div>
+                    <h3 class="projects__title">SEO For Coffee Websites</h3>
+                    <p class="projects__tech-title">Technologies used</p>
+                    <p class="projects__tech">HTML, CSS, JavaScript, Gsap, Swiper Js and Figma.</p>
+                    <img src="assets/profile.jpg" alt="Project 2" class="projects__img">
+                </article>
+
+                <!-- Project 3 -->
+                <article class="projects__card">
+                    <div class="projects__header">
+                        <span class="projects__number">03</span>
+                        <span class="projects__category">Design</span>
+                    </div>
+                    <h3 class="projects__title">Web Design For Restaurant</h3>
+                    <p class="projects__tech-title">Technologies used</p>
+                    <p class="projects__tech">HTML, CSS, JavaScript, Gsap, Swiper Js and Figma.</p>
+                    <img src="assets/profile.jpg" alt="Project 3" class="projects__img">
+                </article>
+            </div>
+        </section>
+
+        <!--==================== EXPERIENCE ====================-->
+        <section class="experience section" id="experience">
+            <h2 class="section__title-center">
+                My Work <br>
+                <span class="section__title-gradient">Experience</span>
+            </h2>
+
+            <div class="experience__container container">
+                <div class="experience__tabs">
+                    <button class="experience__tab active-tab" data-target="#work">
+                        Experience <i class="ri-briefcase-line"></i>
+                    </button>
+                    <button class="experience__tab" data-target="#education">
+                        Education <i class="ri-graduation-cap-line"></i>
+                    </button>
+                </div>
+
+                <div class="experience__content active-content" id="work">
+                    <div class="experience__timeline">
+                        <div class="experience__item">
+                            <div class="experience__left">
+                                <div class="experience__title-wrapper">
+                                    <h3 class="experience__title">Web Developer</h3>
+                                    <span class="experience__subtitle">Google Inc</span>
+                                </div>
+                                <span class="experience__year">2020</span>
+                            </div>
+                            <div class="experience__center">
+                                <div class="experience__line"></div>
+                            </div>
+                            <div class="experience__right">
+                                <p class="experience__description">Web developer handling technologies such as Angular,
+                                    databases, CMS, assisting with web optimization.</p>
+                            </div>
+                        </div>
+
+                        <div class="experience__item">
+                            <div class="experience__left">
+                                <div class="experience__title-wrapper">
+                                    <h3 class="experience__title">Web Designer</h3>
+                                    <span class="experience__subtitle">Google Inc</span>
+                                </div>
+                                <span class="experience__year">2022</span>
+                            </div>
+                            <div class="experience__center">
+                                <div class="experience__line"></div>
+                            </div>
+                            <div class="experience__right">
+                                <p class="experience__description">Web developer handling technologies such as Angular,
+                                    databases, CMS, assisting with web optimization.</p>
+                            </div>
+                        </div>
+
+                        <div class="experience__item">
+                            <div class="experience__left">
+                                <div class="experience__title-wrapper">
+                                    <h3 class="experience__title">SEO & Web Optimization</h3>
+                                    <span class="experience__subtitle">Google Inc</span>
+                                </div>
+                                <span class="experience__year">Now</span>
+                            </div>
+                            <div class="experience__center">
+                                <div class="experience__line"></div>
+                            </div>
+                            <div class="experience__right">
+                                <p class="experience__description">Web developer handling technologies such as Angular,
+                                    databases, CMS, assisting with web optimization.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience__content" id="education">
+                    <div class="experience__timeline">
+                        <div class="experience__item">
+                            <div class="experience__left">
+                                <div class="experience__title-wrapper">
+                                    <h3 class="experience__title">Systems Engineering</h3>
+                                    <span class="experience__subtitle">University</span>
+                                </div>
+                                <span class="experience__year">2010</span>
+                            </div>
+                            <div class="experience__center">
+                                <div class="experience__line"></div>
+                            </div>
+                            <div class="experience__right">
+                                <p class="experience__description">College student, learning the basics of programming,
+                                    web development, and other topics.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--==================== WHAT I OFFER ====================-->
+        <section class="offer section" id="offer">
+            <h2 class="section__title-center">
+                What I <span class="section__title-gradient">Offer</span>
+            </h2>
+
+            <div class="offer__container container grid">
+                <div class="offer__card">
+                    <div class="offer__header">
+                        <h3 class="offer__title">Developer</h3>
+                        <button class="offer__btn">
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                    </div>
+
+                    <div class="offer__content">
+                        <div class="offer__content-inner">
+                            <p class="offer__description">Website creation with HTML, CSS, JavaScript. Professional
+                                websites with TypeScript, React, Node JS, and lots of creativity.</p>
+
+                            <div class="offer__skills">
+                                <p class="offer__skills-title">Skills & Tools</p>
+                                <div class="offer__tags">
+                                    <span class="offer__tag">HTML</span>
+                                    <span class="offer__tag">CSS</span>
+                                    <span class="offer__tag">JavaScript</span>
+                                    <span class="offer__tag">React</span>
+                                    <span class="offer__tag">TypeScript</span>
+                                    <span class="offer__tag">Node Js</span>
+                                    <span class="offer__tag">Next Js</span>
+                                    <span class="offer__tag">PHP</span>
+                                    <span class="offer__tag">GitHub</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="offer__card">
+                    <div class="offer__header">
+                        <h3 class="offer__title">Design</h3>
+                        <button class="offer__btn">
+                            <i class="ri-arrow-down-s-line"></i>
+                        </button>
+                    </div>
+
+                    <div class="offer__content">
+                        <div class="offer__content-inner">
+                            <p class="offer__description">Web designer with Figma and Sketch, creating motion designs
+                                with After Effects, creativity and design at its best.</p>
+
+                            <div class="offer__skills">
+                                <p class="offer__skills-title">Skills & Tools</p>
+                                <div class="offer__tags">
+                                    <span class="offer__tag">Figma</span>
+                                    <span class="offer__tag">Adobe XD</span>
+                                    <span class="offer__tag">Photoshop</span>
+                                    <span class="offer__tag">Illustrator</span>
+                                    <span class="offer__tag">Sketch</span>
+                                    <span class="offer__tag">3D Modeling</span>
+                                    <span class="offer__tag">After Effects</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!--==================== CONTACT ====================-->
+        <section class="contact section" id="contact">
+            <h2 class="section__title-center" style="margin-bottom: 0.5rem; color: var(--title-color);">
+                Contact Me
+            </h2>
+            <p class="contact__subtitle">Tell me about your next project.</p>
+
+            <div class="contact__copy-wrapper">
+                <button class="btn btn--outline contact__copy-btn">
+                    Copy email <i class="ri-file-copy-line"></i>
+                </button>
+            </div>
+
+            <div class="contact__container container grid">
+                <!-- Column 1 -->
+                <div class="contact__group">
+                    <div class="contact__info">
+                        <h3 class="contact__title">Email</h3>
+                        <p class="contact__text">kris@email.com</p>
+                    </div>
+
+                    <div class="contact__info">
+                        <h3 class="contact__title">Location</h3>
+                        <p class="contact__text">New York, USA</p>
+                    </div>
+                </div>
+
+                <!-- Column 2 -->
+                <div class="contact__group">
+                    <h3 class="contact__title">Social Media</h3>
+                    <ul class="contact__list">
+                        <li><a href="#" class="contact__link">Linkedin <i class="ri-arrow-right-up-line"></i></a></li>
+                        <li><a href="#" class="contact__link">GitHub <i class="ri-arrow-right-up-line"></i></a></li>
+                        <li><a href="#" class="contact__link">Dribbble <i class="ri-arrow-right-up-line"></i></a></li>
+                        <li><a href="#" class="contact__link">GitLab <i class="ri-arrow-right-up-line"></i></a></li>
+                    </ul>
+                </div>
+
+                <!-- Column 3 -->
+                <div class="contact__group">
+                    <h3 class="contact__title">Write Me & We'll Talk</h3>
+                    <ul class="contact__list">
+                        <li><a href="#" class="contact__link">WhatsApp <i class="ri-arrow-right-up-line"></i></a></li>
+                        <li><a href="#" class="contact__link">Messenger <i class="ri-arrow-right-up-line"></i></a></li>
+                        <li><a href="#" class="contact__link">Telegram <i class="ri-arrow-right-up-line"></i></a></li>
+                        <li><a href="#" class="contact__link">Instagram <i class="ri-arrow-right-up-line"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <!-- Footer is now inside the contact section to fit the snap scroll -->
+            <footer class="footer">
+                <div class="footer__container container">
+                    <span class="footer__copy">
+                        All Rights Reserved By <a href="#" class="footer__link">Kris Jaiswal</a>
+                    </span>
+                    <span class="footer__year">&#169; 2025</span>
+                </div>
+            </footer>
+        </section>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
