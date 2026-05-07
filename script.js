@@ -131,18 +131,18 @@ tiltCards.forEach(card => {
         const rect = card.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
-        
+
         const centerX = rect.width / 2;
         const centerY = rect.height / 2;
-        
+
         // Subtle tilt: max 5 degrees
         const rotateX = ((y - centerY) / centerY) * -5;
         const rotateY = ((x - centerX) / centerX) * 5;
-        
+
         card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px) scale3d(1.02, 1.02, 1.02)`;
         card.style.transition = 'border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease'; // Remove transform transition to avoid lag
     });
-    
+
     card.addEventListener('mouseleave', () => {
         card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0) scale3d(1, 1, 1)`;
         card.style.transition = 'transform 0.5s cubic-bezier(0.25, 0.8, 0.25, 1), border-color 0.4s ease, box-shadow 0.4s ease, background 0.4s ease';
@@ -158,8 +158,7 @@ tiltCards.forEach(card => {
     const PARTICLE_COUNT = 80;
     const CONNECTION_DIST = 130;
     const REPULSION_DIST = 100;
-    const PARTICLE_COLOR = '255, 219, 77';
-    const LINE_COLOR = '255, 219, 77';
+    const getParticleColor = () => document.body.classList.contains('light-theme') ? '200, 120, 0' : '255, 219, 77';
 
     let W = window.innerWidth;
     let H = window.innerHeight;
@@ -224,7 +223,8 @@ tiltCards.forEach(card => {
         draw() {
             ctx.beginPath();
             ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(${PARTICLE_COLOR}, ${this.opacity})`;
+            const pColor = getParticleColor();
+            ctx.fillStyle = `rgba(${pColor}, ${this.opacity})`;
             ctx.fill();
         }
     }
@@ -243,7 +243,8 @@ tiltCards.forEach(card => {
                     ctx.beginPath();
                     ctx.moveTo(particles[i].x, particles[i].y);
                     ctx.lineTo(particles[j].x, particles[j].y);
-                    ctx.strokeStyle = `rgba(${LINE_COLOR}, ${alpha})`;
+                    const pColor = getParticleColor();
+                    ctx.strokeStyle = `rgba(${pColor}, ${alpha})`;
                     ctx.lineWidth = 0.6;
                     ctx.stroke();
                 }
@@ -288,3 +289,84 @@ tiltCards.forEach(card => {
     animateGlow();
 })();
 
+/*=============== SCROLL-SPY (ACTIVE GLOW) ===============*/
+(function () {
+    // Map each section id to the matching nav link href
+    const sectionIds = ['about', 'projects', 'experience', 'contact'];
+
+    const navLinks = document.querySelectorAll('.nav__link');
+
+    const setActiveLink = (id) => {
+        navLinks.forEach((link) => {
+            link.classList.remove('active-glow');
+            // match by the trailing hash + id, e.g. "#about"
+            if (link.getAttribute('href') === `#${id}`) {
+                link.classList.add('active-glow');
+            }
+        });
+    };
+
+    const clearActiveLinks = () => {
+        navLinks.forEach((link) => link.classList.remove('active-glow'));
+    };
+
+    const spyCallback = (entries) => {
+        entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+                setActiveLink(entry.target.id);
+            }
+        });
+    };
+
+    const spyObserver = new IntersectionObserver(spyCallback, {
+        root: null,
+        threshold: 0.6,
+    });
+
+    sectionIds.forEach((id) => {
+        const section = document.getElementById(id);
+        if (section) spyObserver.observe(section);
+    });
+
+    // Clear glow when user scrolls back to the home section
+    const homeSection = document.getElementById('home');
+    if (homeSection) {
+        const homeObserver = new IntersectionObserver(
+            ([entry]) => { if (entry.isIntersecting) clearActiveLinks(); },
+            { root: null, threshold: 0.6 }
+        );
+        homeObserver.observe(homeSection);
+    }
+})();
+
+/*=============== DARK LIGHT THEME ===============*/
+const themeButton = document.getElementById('theme-button')
+const lightTheme = 'light-theme'
+const iconTheme = 'ri-sun-line'
+const iconDark = 'ri-moon-line'
+
+// Previously selected theme (if user selected)
+const selectedTheme = localStorage.getItem('selected-theme')
+
+// We validate if the user previously chose a theme
+if (selectedTheme === 'light') {
+  document.body.classList.add(lightTheme)
+  themeButton.classList.replace(iconDark, iconTheme)
+}
+
+// Activate / deactivate the theme manually with the button
+if (themeButton) {
+    themeButton.addEventListener('click', () => {
+        // Add or remove the light theme
+        document.body.classList.toggle(lightTheme)
+        
+        // Update the icon
+        if(document.body.classList.contains(lightTheme)) {
+            themeButton.classList.replace(iconDark, iconTheme)
+            localStorage.setItem('selected-theme', 'light')
+        } else {
+            themeButton.classList.replace(iconTheme, iconDark)
+            localStorage.setItem('selected-theme', 'dark')
+        }
+    })
+}
