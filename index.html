@@ -41,6 +41,9 @@
                         <a href="#projects" class="nav__link">Projects</a>
                     </li>
                     <li class="nav__item">
+                        <a href="#experience" class="nav__link">Work & Edu</a>
+                    </li>
+                    <li class="nav__item">
                         <a href="#contact" class="nav__link">Contact</a>
                     </li>
                 </ul>
@@ -50,9 +53,14 @@
                 </div>
             </div>
 
-            <!-- Toggle button for mobile -->
-            <div class="nav__toggle" id="nav-toggle">
-                <i class="ri-menu-line"></i>
+            <div class="nav__buttons" style="display: flex; align-items: center; gap: 1rem;">
+                <!-- Theme change button -->
+                <i class="ri-moon-line change-theme" id="theme-button" style="font-size: 1.25rem; color: var(--title-color); cursor: pointer; transition: color 0.3s;"></i>
+                
+                <!-- Toggle button for mobile -->
+                <div class="nav__toggle" id="nav-toggle">
+                    <i class="ri-menu-line"></i>
+                </div>
             </div>
         </nav>
     </header>
@@ -328,50 +336,66 @@
         <!--==================== CONTACT ====================-->
         <section class="contact section" id="contact">
             <h2 class="section__title-center" style="margin-bottom: 0.5rem; color: var(--title-color);">
-                Contact Me
+                Contact Us
             </h2>
-            <p class="contact__subtitle">Tell me about your next project.</p>
-
-            <div class="contact__copy-wrapper">
-                <button class="btn btn--outline contact__copy-btn">
-                    Copy email <i class="ri-file-copy-line"></i>
-                </button>
-            </div>
+            <p class="contact__subtitle">Home / Contact</p>
 
             <div class="contact__container container grid">
-                <!-- Column 1 -->
-                <div class="contact__group">
-                    <div class="contact__info">
-                        <h3 class="contact__title">Email</h3>
-                        <p class="contact__text">kris@email.com</p>
-                    </div>
-
-                    <div class="contact__info">
-                        <h3 class="contact__title">Location</h3>
-                        <p class="contact__text">New York, USA</p>
-                    </div>
+                <!-- Form Column -->
+                <div class="contact__form-card">
+                    <span class="contact__form-subtitle">Contact Us</span>
+                    <h3 class="contact__form-title">Get In Touch</h3>
+                    <form action="" class="contact__form">
+                        <div class="contact__form-row">
+                            <div class="contact__form-group">
+                                <label for="name" class="contact__form-label">Name</label>
+                                <input type="text" id="name" placeholder="Your Name..." class="contact__form-input">
+                            </div>
+                            <div class="contact__form-group">
+                                <label for="email" class="contact__form-label">Email</label>
+                                <input type="email" id="email" placeholder="example@yourmail.com" class="contact__form-input">
+                            </div>
+                        </div>
+                        <div class="contact__form-group">
+                            <label for="subject" class="contact__form-label">Subject</label>
+                            <input type="text" id="subject" placeholder="Title..." class="contact__form-input">
+                        </div>
+                        <div class="contact__form-group">
+                            <label for="message" class="contact__form-label">Message</label>
+                            <textarea id="message" cols="30" rows="3" placeholder="Type Here..." class="contact__form-input"></textarea>
+                        </div>
+                        <button type="submit" class="contact__form-btn">Send Now</button>
+                    </form>
                 </div>
 
-                <!-- Column 2 -->
-                <div class="contact__group">
-                    <h3 class="contact__title">Social Media</h3>
-                    <ul class="contact__list">
-                        <li><a href="#" class="contact__link">Linkedin <i class="ri-arrow-right-up-line"></i></a></li>
-                        <li><a href="#" class="contact__link">GitHub <i class="ri-arrow-right-up-line"></i></a></li>
-                        <li><a href="#" class="contact__link">Dribbble <i class="ri-arrow-right-up-line"></i></a></li>
-                        <li><a href="#" class="contact__link">GitLab <i class="ri-arrow-right-up-line"></i></a></li>
-                    </ul>
-                </div>
+                <!-- Info Column -->
+                <div class="contact__info-content">
+                    <p class="contact__info-desc">
+                        In tempus nisl turpis, at ultricies dui eleifend a. Quisque et quam vel nunc consectetur pharetra euismod et elit. Morbi nibh tortor, ullamcorper id purus eu, rhoncus consequat velit.
+                    </p>
 
-                <!-- Column 3 -->
-                <div class="contact__group">
-                    <h3 class="contact__title">Write Me & We'll Talk</h3>
-                    <ul class="contact__list">
-                        <li><a href="#" class="contact__link">WhatsApp <i class="ri-arrow-right-up-line"></i></a></li>
-                        <li><a href="#" class="contact__link">Messenger <i class="ri-arrow-right-up-line"></i></a></li>
-                        <li><a href="#" class="contact__link">Telegram <i class="ri-arrow-right-up-line"></i></a></li>
-                        <li><a href="#" class="contact__link">Instagram <i class="ri-arrow-right-up-line"></i></a></li>
-                    </ul>
+                    <div class="contact__info-grid">
+                        <div class="contact__info-item">
+                            <i class="ri-phone-line contact__info-icon"></i>
+                            <h3 class="contact__info-title">Phone Number</h3>
+                            <p class="contact__info-text">+6282 4032 567</p>
+                        </div>
+                        <div class="contact__info-item">
+                            <i class="ri-whatsapp-line contact__info-icon"></i>
+                            <h3 class="contact__info-title">Whatsapp</h3>
+                            <p class="contact__info-text">082-245-7253</p>
+                        </div>
+                        <div class="contact__info-item">
+                            <i class="ri-mail-line contact__info-icon"></i>
+                            <h3 class="contact__info-title">Email Address</h3>
+                            <p class="contact__info-text">Example@Email.Com</p>
+                        </div>
+                        <div class="contact__info-item">
+                            <i class="ri-map-pin-line contact__info-icon"></i>
+                            <h3 class="contact__info-title">Our Office</h3>
+                            <p class="contact__info-text">2443 Oak Ridge Omaha, QA 45065</p>
+                        </div>
+                    </div>
                 </div>
             </div>
             <!-- Footer is now inside the contact section to fit the snap scroll -->
