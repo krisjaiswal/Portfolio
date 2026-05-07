@@ -32,8 +32,8 @@
 
   /*========== z index ==========*/
   --z-tooltip: 10;
-  --z-fixed: 100;
-  --z-modal: 1000;
+  --z-fixed: 9999;
+  --z-modal: 10000;
 }
 
 /* Responsive typography */
@@ -66,7 +66,6 @@ body {
   background-color: var(--body-color);
   color: var(--text-color);
   line-height: 1.6;
-  overflow-x: hidden;
   position: relative;
 }
 
@@ -205,7 +204,7 @@ img {
   flex-direction: column;
   justify-content: center;
   position: relative;
-  overflow: hidden;
+  z-index: 1;
   padding-block: 4rem 1rem;
 }
 
@@ -215,17 +214,19 @@ img {
   width: 100%;
   top: 0;
   left: 0;
-  background-color: transparent;
+  background-color: rgba(10, 10, 10, 0.95);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   z-index: var(--z-fixed);
-  transition: background-color .4s;
+  transition: background-color .4s, box-shadow .4s;
 }
 
 .header.scroll-header {
-  background-color: rgba(10, 10, 10, 0.5);
+  background-color: rgba(10, 10, 10, 0.95);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.05), 0 4px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.05), 0 4px 30px rgba(0, 0, 0, 0.5);
 }
 
 .nav {
@@ -259,16 +260,16 @@ img {
 @media screen and (max-width: 768px) {
   .nav__menu {
     position: fixed;
-    top: -100%;
+    top: 0;
     left: 0;
-    background-color: rgba(10, 10, 10, 0.6);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background-color: #0a0a0a;
     width: 100%;
     padding-block: 4.5rem 4rem;
-    transition: top .4s cubic-bezier(0.4, 0, 0.2, 1);
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.05), 0 4px 30px rgba(0, 0, 0, 0.3);
+    box-shadow: inset 0 -1px 1px rgba(255, 255, 255, 0.05), 0 8px 40px rgba(0, 0, 0, 0.6);
+    z-index: var(--z-fixed);
+    transform: translateY(-100%);
+    transition: transform .4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 }
 
@@ -282,11 +283,17 @@ img {
 .nav__link {
   color: var(--title-color);
   font-weight: var(--font-medium);
-  transition: color .3s;
+  transition: all 0.3s ease;
 }
 
 .nav__link:hover {
   color: var(--first-color);
+}
+
+/*=============== SCROLL-SPY ACTIVE GLOW ===============*/
+.nav__link.active-glow {
+  color: #ffdb4d;
+  text-shadow: 0 0 10px #ffdb4d, 0 0 20px #ffdb4d;
 }
 
 .nav__close {
@@ -297,7 +304,7 @@ img {
 
 /* Show menu */
 .show-menu {
-  top: 0;
+  transform: translateY(0);
 }
 
 /*=============== HOME ===============*/
@@ -1116,80 +1123,182 @@ img {
 
 
 /*=============== CONTACT ===============*/
+#contact {
+  height: 100vh !important;
+  height: 100dvh !important;
+  padding-top: 7rem !important;
+  padding-bottom: 1rem !important;
+  justify-content: flex-start !important;
+}
+
 .contact__subtitle {
   text-align: center;
   color: var(--text-color);
-  font-size: var(--h3-font-size);
-  margin-bottom: 2rem;
+  font-size: var(--small-font-size);
+  margin-bottom: 1rem;
 }
 
-.contact__copy-wrapper {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 4rem;
+.contact__container {
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  align-items: start;
 }
 
-.contact__copy-btn {
-  background: rgba(255, 255, 255, 0.05);
+@media screen and (min-width: 968px) {
+  .contact__container {
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+  }
+}
+
+/* Contact Form Card */
+.contact__form-card {
+  background: rgba(255, 255, 255, 0.03);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.1);
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-family: var(--body-font);
-  font-weight: var(--font-medium);
-  font-size: var(--normal-font-size);
-  color: var(--title-color);
-  cursor: pointer;
+  border-radius: 1rem;
+  padding: 1rem;
 }
 
-.contact__copy-btn:hover {
+.contact__form-subtitle {
+  display: block;
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+  font-weight: var(--font-medium);
+  margin-bottom: 0;
+}
+
+.contact__form-title {
+  font-size: var(--h3-font-size);
+  color: var(--title-color);
+  margin-bottom: 0.5rem;
+  font-weight: var(--font-bold);
+}
+
+.contact__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.contact__form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem;
+}
+
+@media screen and (max-width: 576px) {
+  .contact__form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+.contact__form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.contact__form-label {
+  font-size: var(--small-font-size);
+  color: var(--text-color);
+}
+
+.contact__form-input {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 0.4rem 0.75rem;
+  border-radius: 0.5rem;
+  color: var(--title-color);
+  font-family: var(--body-font);
+  font-size: var(--small-font-size);
+  transition: border-color 0.3s;
+}
+
+body.light-theme .contact__form-input {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.contact__form-input:focus {
+  outline: none;
+  border-color: var(--first-color);
+}
+
+.contact__form-input::placeholder {
+  color: var(--text-color-light);
+  font-size: var(--small-font-size);
+}
+
+.contact__form-btn {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  color: var(--title-color);
+  padding: 0.4rem 1rem;
+  border-radius: 4rem;
+  font-family: var(--body-font);
+  font-size: var(--small-font-size);
+  font-weight: var(--font-medium);
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 0.25rem;
+}
+
+body.light-theme .contact__form-btn {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.contact__form-btn:hover {
   background: rgba(255, 255, 255, 0.1);
 }
 
-.contact__container {
-  grid-template-columns: repeat(3, 1fr);
-  text-align: center;
-  row-gap: 3rem;
+body.light-theme .contact__form-btn:hover {
+  background: rgba(0, 0, 0, 0.05);
 }
 
-.contact__group {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-.contact__title {
-  background: linear-gradient(90deg, #ffdb4d, #ff8c00);
-  -webkit-background-clip: text;
-  color: transparent;
-  font-size: var(--h3-font-size);
-  margin-bottom: 1rem;
-}
-
-.contact__text {
-  color: var(--title-color);
-}
-
-.contact__list {
+/* Contact Info */
+.contact__info-content {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
-.contact__link {
-  color: var(--title-color);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.5rem;
-  transition: color 0.3s;
+.contact__info-desc {
+  color: var(--text-color);
+  line-height: 1.4;
+  font-size: var(--small-font-size);
 }
 
-.contact__link:hover {
-  color: var(--first-color);
+.contact__info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.contact__info-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.25rem;
+}
+
+.contact__info-icon {
+  font-size: 1.5rem;
+  color: var(--title-color);
+  margin-bottom: 0.1rem;
+}
+
+.contact__info-title {
+  font-size: var(--normal-font-size);
+  color: var(--title-color);
+  font-weight: var(--font-bold);
+}
+
+.contact__info-text {
+  font-size: var(--small-font-size);
+  color: var(--text-color);
 }
 
 @media screen and (max-width: 768px) {
@@ -1200,7 +1309,7 @@ img {
 
 /*=============== FOOTER ===============*/
 .footer {
-  padding-block: 2rem 1rem;
+  padding-block: 0.5rem;
   margin-top: auto;
 }
 
@@ -1238,4 +1347,281 @@ img {
     justify-content: center;
     margin-top: 2rem;
   }
+}
+
+/*=============== MOBILE LAYOUT FIXES ===============*/
+@media screen and (max-width: 768px) {
+  /* 1. Implement a Mobile Reset */
+  .container,
+  .section,
+  .home,
+  .about,
+  .projects,
+  .experience,
+  .offer,
+  .contact {
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .section {
+    height: auto !important;
+  }
+
+  /* 2. Fix Horizontal Overflow */
+  html, body {
+    overflow-x: hidden;
+  }
+
+  /* Elements with fixed widths adjusted for mobile */
+  .home__img-wrapper,
+  .about__img-wrapper,
+  #mouse-glow,
+  .about__description,
+  .experience__timeline {
+    max-width: 100% !important;
+  }
+
+  /* 3. Stack Flexbox and Grid Elements */
+  /* Change flex-direction: row containers to column, and ensure Hero stacks vertically */
+  .home__container,
+  .home__content,
+  .about__container,
+  .contact__container {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* Enabled particles and mouse glow on small screens as requested */
+  #particle-canvas,
+  #mouse-glow {
+    display: block; /* or just remove the display: none entirely */
+  }
+
+  /* 4. Adjust Spacing */
+  /* Reduce large padding and margin values */
+  .section {
+    padding: 4rem 1rem 2rem !important;
+  }
+
+  .container {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  /* Ensure all text elements have word-wrap: break-word */
+  h1, h2, h3, h4, p, span, a {
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+  }
+}
+
+/*=============== SCROLL REVEAL — FADE IN / FADE OUT ===============*/
+/*
+ * .hidden  — initial state applied by JS before a section enters view
+ * .show    — applied by IntersectionObserver when 20%+ of section is visible
+ * The #home section is excluded in JS so the hero is always visible.
+ * z-index stays at 1, safely below the nav bar (--z-fixed: 9999).
+ */
+.hidden {
+  opacity: 0;
+  filter: blur(5px);
+  transform: translateY(30px);
+  transition: opacity 0.8s ease-out,
+              filter  0.8s ease-out,
+              transform 0.8s ease-out;
+}
+
+.show {
+  opacity: 1;
+  filter: blur(0px);
+  transform: translateY(0);
+}
+
+/* Reduce motion for accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .hidden {
+    filter: none;
+    transform: none;
+    transition: opacity 0.4s ease-out;
+  }
+}
+
+/* Lighter blur on mobile to avoid GPU paint cost */
+@media screen and (max-width: 768px) {
+  .hidden {
+    filter: blur(2px);
+    transform: translateY(16px);
+  }
+}
+
+/*========== LIGHT THEME ==========*/
+body.light-theme {
+  --body-color: #f5f5f5;
+  --title-color: #1a1a1a;
+  --text-color: #555555;
+  --text-color-light: #777777;
+  --first-color: #d97700;
+  --first-color-glow: rgba(217, 119, 0, 0.15);
+}
+
+/* Crazy Next-Level Floating Navbar (Light Theme) */
+body.light-theme .header {
+  background-color: transparent;
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  border-bottom: none;
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  left: 0;
+  top: 0;
+}
+
+@media screen and (min-width: 768px) {
+  body.light-theme .header.scroll-header {
+    width: calc(100% - 4rem);
+    left: 2rem;
+    top: 1.5rem;
+    background: rgba(255, 255, 255, 0.5);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    border-radius: 100px;
+    box-shadow: 
+      0 20px 40px rgba(0, 0, 0, 0.05),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.5);
+    border: none;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  body.light-theme .header.scroll-header {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(24px) saturate(200%);
+    -webkit-backdrop-filter: blur(24px) saturate(200%);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  }
+}
+
+/* Micro-interactions for Nav Links (Light Theme) */
+body.light-theme .nav__link {
+  position: relative;
+  padding: 0.5rem 1rem;
+  z-index: 1;
+  transition: color 0.4s ease;
+  border-radius: 100px;
+}
+
+body.light-theme .nav__link::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.04);
+  border-radius: 100px;
+  z-index: -1;
+  transform: scale(0.8);
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+body.light-theme .nav__link:hover {
+  color: var(--first-color);
+}
+
+body.light-theme .nav__link:hover::before {
+  transform: scale(1);
+  opacity: 1;
+}
+
+body.light-theme .nav__link.active-glow {
+  color: #fff;
+  text-shadow: none;
+}
+
+body.light-theme .nav__link.active-glow::before {
+  transform: scale(1);
+  opacity: 1;
+  background: var(--first-color);
+  box-shadow: 0 4px 15px var(--first-color-glow);
+}
+
+@media screen and (max-width: 768px) {
+  body.light-theme .nav__menu {
+    background-color: #f5f5f5;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.1);
+  }
+}
+
+body.light-theme .home__social-link,
+body.light-theme .btn--outline,
+body.light-theme .experience__tabs,
+body.light-theme .contact__copy-btn,
+body.light-theme .offer__tag {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .home__social-link:hover,
+body.light-theme .btn--outline:hover,
+body.light-theme .contact__copy-btn:hover {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .projects__card,
+body.light-theme .offer__card,
+body.light-theme .contact__form-card {
+  background: rgba(0, 0, 0, 0.02);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05), 0 8px 32px rgba(0, 0, 0, 0.05);
+}
+
+body.light-theme .projects__card:hover,
+body.light-theme .offer__card:hover,
+body.light-theme .contact__form-card:hover {
+  background: rgba(0, 0, 0, 0.04);
+  border-color: rgba(0, 0, 0, 0.2);
+}
+
+body.light-theme .footer {
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .experience__center {
+  background: rgba(0, 0, 0, 0.1);
+}
+
+body.light-theme .home__img {
+  filter: grayscale(100%) contrast(1.1) brightness(1.2);
+}
+
+body.light-theme .home__img:hover {
+  filter: grayscale(0%) contrast(1) brightness(1);
+}
+
+body.light-theme .nav__toggle {
+  color: var(--title-color);
+}
+
+body.light-theme .blob-1 { background: rgba(255, 140, 0, 0.4); }
+body.light-theme .blob-2 { background: rgba(217, 119, 0, 0.35); }
+body.light-theme .blob-3 { background: rgba(10, 100, 255, 0.2); }
+
+body.light-theme #mouse-glow {
+  background: radial-gradient(circle, rgba(217, 119, 0, 0.15) 0%, rgba(217, 119, 0, 0.05) 40%, transparent 70%);
+}
+
+body.light-theme .home__name,
+body.light-theme .section__title-gradient,
+body.light-theme .about__title-gradient,
+body.light-theme .contact__title,
+body.light-theme .footer__link {
+  background: linear-gradient(90deg, #c45b00, #d93d00);
+  -webkit-background-clip: text;
+  color: transparent;
 }
